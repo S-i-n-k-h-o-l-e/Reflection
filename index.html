@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reflector</title>
+    <script defer src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script defer src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script defer type="text/babel">
+      const { useState } = React;
+
+      function Reflector() {
+        const [seed, setSeed] = useState('');
+        const [reflection, setReflection] = useState('');
+
+        const generateReflection = () => {
+          if (!seed.trim()) return;
+          const fragments = [
+            `You are drawn to ${seed} like a thread through silence.`,
+            `Your reflection flickers in the space between ${seed} and memory.`,
+            `When the world forgets, ${seed} remembers you.`,
+            `This system hums quietly in tune with your ${seed}.`
+          ];
+          const random = fragments[Math.floor(Math.random() * fragments.length)];
+          setReflection(random);
+        };
+
+        return (
+          <div style={{ minHeight: '100vh', backgroundColor: 'black', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
+            <h1 style={{ fontSize: '2rem', fontWeight: '600', marginBottom: '1rem' }}>🪞 Build Your Digital Reflection</h1>
+            <input
+              type="text"
+              placeholder="Enter a word you return to..."
+              value={seed}
+              onChange={(e) => setSeed(e.target.value)}
+              style={{ width: '100%', maxWidth: '24rem', padding: '0.5rem', color: 'black', borderRadius: '0.5rem', marginBottom: '1rem' }}
+            />
+            <button
+              onClick={generateReflection}
+              style={{ backgroundColor: 'white', color: 'black', padding: '0.5rem 1rem', borderRadius: '0.5rem', cursor: 'pointer' }}
+            >
+              Reflect
+            </button>
+            {reflection && (
+              <div style={{ marginTop: '1.5rem', textAlign: 'center', fontStyle: 'italic', color: '#d8b4fe', maxWidth: '36rem' }}>
+                {reflection}
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById('root')).render(<Reflector />);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
